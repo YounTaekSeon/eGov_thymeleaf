@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.sample.service.impl.SampleMapper">
+
+	<resultMap id="sample" type="egovframework.example.sample.service.SampleVO">
+		<result property="postId" 		column="POST_ID"/>
+		<result property="postTitle" 	column="POST_TITLE"/>
+		<result property="postCtt" 		column="POST_CTT"/>
+		<result property="regrEmpno" 	column="REGR_EMPNO"/>
+		<result property="regDt" 		column="REG_DT"/>
+		<result property="mdfrEmpno" 	column="MDFR_EMPNO"/>
+		<result property="mdfcnDt" 		column="MDFCN_DT"/>
+		<result property="useYn" 		column="USE_YN"/>
+		<result property="delDt" 		column="DEL_DT"/>
+		<result property="delEmpno" 	column="DEL_EMPNO"/>
+	</resultMap>
+	
+	<select id="selectSampleList" parameterType="searchVO" resultType="egovMap">
+
+			SELECT
+					POST_ID, POST_TITLE, POST_CTT, REGR_EMPNO, REG_DT, MDFR_EMPNO, MDFCN_DT
+			FROM 	TB_SAMPLE_YTS
+			WHERE 	1=1 AND USE_YN = 'Y'
+			<if test="searchKeyword != null and searchKeyword != ''">
+		        <choose>
+		            <when test="searchCondition == 0">
+						AND	ID LIKE '%' || #{searchKeyword} || '%'
+					</when>
+		            <when test="searchCondition == 1">
+						AND	NAME LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>			
+			ORDER BY POST_ID DESC
+	</select>
+
+</mapper>

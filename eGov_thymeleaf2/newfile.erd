@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<net.java.amateras.db.visual.model.RootModel>
+  <listeners serialization="custom">
+    <java.beans.PropertyChangeSupport>
+      <default>
+        <source class="net.java.amateras.db.visual.model.RootModel" reference="../../../.."/>
+        <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+      </default>
+      <null/>
+    </java.beans.PropertyChangeSupport>
+  </listeners>
+  <children>
+    <net.java.amateras.db.visual.model.TableModel>
+      <listeners serialization="custom">
+        <java.beans.PropertyChangeSupport>
+          <default>
+            <source class="net.java.amateras.db.visual.model.TableModel" reference="../../../.."/>
+            <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+          </default>
+          <null/>
+        </java.beans.PropertyChangeSupport>
+      </listeners>
+      <constraint>
+        <height>-1</height>
+        <width>-1</width>
+        <x>185</x>
+        <y>110</y>
+      </constraint>
+      <sourceConnections/>
+      <targetConnections>
+        <net.java.amateras.db.visual.model.ForeignKeyModel>
+          <listeners serialization="custom">
+            <java.beans.PropertyChangeSupport>
+              <default>
+                <source class="net.java.amateras.db.visual.model.ForeignKeyModel" reference="../../../.."/>
+                <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+              </default>
+              <null/>
+            </java.beans.PropertyChangeSupport>
+          </listeners>
+          <source class="net.java.amateras.db.visual.model.TableModel">
+            <listeners serialization="custom">
+              <java.beans.PropertyChangeSupport>
+                <default>
+                  <source class="net.java.amateras.db.visual.model.TableModel" reference="../../../.."/>
+                  <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+                </default>
+                <null/>
+              </java.beans.PropertyChangeSupport>
+            </listeners>
+            <constraint>
+              <height>-1</height>
+              <width>-1</width>
+              <x>779</x>
+              <y>81</y>
+            </constraint>
+            <sourceConnections>
+              <net.java.amateras.db.visual.model.ForeignKeyModel reference="../../.."/>
+            </sourceConnections>
+            <targetConnections/>
+            <error></error>
+            <linkedPath></linkedPath>
+            <tableName>TB_SAMPLE_FILE_YTS</tableName>
+            <logicalName>게시글첨부파일 테이블</logicalName>
+            <description></description>
+            <columns>
+              <net.java.amateras.db.visual.model.ColumnModel>
+                <columnName>FILE_ID</columnName>
+                <logicalName>첨부파일번호</logicalName>
+                <columnType class="net.java.amateras.db.dialect.ColumnType">
+                  <name>NUMERIC</name>
+                  <logicalName>Numeric</logicalName>
+                  <supportSize>true</supportSize>
+                  <type>2</type>
+                </columnType>
+                <size>10</size>
+                <notNull>true</notNull>
+                <primaryKey>true</primaryKey>
+                <description></description>
+                <autoIncrement>true</autoIncrement>
+                <defaultValue></defaultValue>
+              </net.java.amateras.db.visual.model.ColumnModel>
+              <net.java.amateras.db.visual.model.ColumnModel>
+                <columnName>POST_ID</columnName>
+                <logicalName>게시글번호</logicalName>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
+                <size>10</size>
+                <notNull>true</notNull>
+                <primaryKey>true</primaryKey>
+                <description></description>
+                <autoIncrement>false</autoIncrement>
+                <defaultValue></defaultValue>
+              </net.java.amateras.db.visual.model.ColumnModel>
+              <net.java.amateras.db.visual.model.ColumnModel>
+                <columnName>FILE_REGR_EMPNO</columnName>
+                <logicalName>첨부파일등록자사번</logicalName>
+                <columnType class="net.java.amateras.db.dialect.ColumnType">
+                  <name>VARCHAR</name>
+                  <logicalName>String</logicalName>
+                  <supportSize>true</supportSize>
+                  <type>12</type>
+                </columnType>
+                <size>30</size>
+                <notNull>false</notNull>
+                <primaryKey>false</primaryKey>
+                <description></description>
+                <autoIncrement>false</autoIncrement>
+                <defaultValue></defaultValue>
+              </net.java.amateras.db.visual.model.ColumnModel>
+              <net.java.amateras.db.visual.model.ColumnModel>
+                <columnName>FILE_REG_DT</columnName>
+                <logicalName>첨부파일등록일자</logicalName>
+                <columnType class="net.java.amateras.db.dialect.ColumnType">
+                  <name>DATE</name>
+                  <logicalName>Date</logicalName>
+                  <supportSize>false</supportSize>
+                  <type>91</type>
+                </columnType>
+                <size>10</size>
+                <notNull>false</notNull>
+                <primaryKey>false</primaryKey>
+                <description></description>
+                <autoIncrement>false</autoIncrement>
+                <defaultValue></defaultValue>
+              </net.java.amateras.db.visual.model.ColumnModel>
+              <net.java.amateras.db.visual.model.ColumnModel>
+                <columnName>FILE_MDFR_EMPNO</columnName>
+                <logicalName>첨부파일수정자사번</logicalName>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+                <size>30</size>
+                <notNull>false</notNull>
+                <primaryKey>false</primaryKey>
+                <description></description>
+                <autoIncrement>false</autoIncrement>
+                <defaultValue></defaultValue>
+              </net.java.amateras.db.visual.model.ColumnModel>
+              <net.java.amateras.db.visual.model.ColumnModel>
+                <columnName>FILE_MDFCN_DT</columnName>
+                <logicalName>첨부파일수정일자</logicalName>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[4]/columnType"/>
+                <size>10</size>
+                <notNull>false</notNull>
+                <primaryKey>false</primaryKey>
+                <description></description>
+                <autoIncrement>false</autoIncrement>
+                <defaultValue></defaultValue>
+              </net.java.amateras.db.visual.model.ColumnModel>
+              <net.java.amateras.db.visual.model.ColumnModel>
+                <columnName>FILE_USE_YN</columnName>
+                <logicalName>첨부파일사용여부</logicalName>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+                <size>1</size>
+                <notNull>false</notNull>
+                <primaryKey>false</primaryKey>
+                <description></description>
+                <autoIncrement>false</autoIncrement>
+                <defaultValue>&apos;Y&apos;</defaultValue>
+              </net.java.amateras.db.visual.model.ColumnModel>
+              <net.java.amateras.db.visual.model.ColumnModel>
+                <columnName>FILE_NM</columnName>
+                <logicalName>서버첨부파일명</logicalName>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+                <size>255</size>
+                <notNull>false</notNull>
+                <primaryKey>false</primaryKey>
+                <description></description>
+                <autoIncrement>false</autoIncrement>
+                <defaultValue></defaultValue>
+              </net.java.amateras.db.visual.model.ColumnModel>
+              <net.java.amateras.db.visual.model.ColumnModel>
+                <columnName>FILE_RNM</columnName>
+                <logicalName>원본첨부파일명</logicalName>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+                <size>255</size>
+                <notNull>false</notNull>
+                <primaryKey>false</primaryKey>
+                <description></description>
+                <autoIncrement>false</autoIncrement>
+                <defaultValue></defaultValue>
+              </net.java.amateras.db.visual.model.ColumnModel>
+              <net.java.amateras.db.visual.model.ColumnModel>
+                <columnName>FILE_FEXT_NM</columnName>
+                <logicalName>첨부파일확장자명</logicalName>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+                <size>5</size>
+                <notNull>false</notNull>
+                <primaryKey>false</primaryKey>
+                <description></description>
+                <autoIncrement>false</autoIncrement>
+                <defaultValue></defaultValue>
+              </net.java.amateras.db.visual.model.ColumnModel>
+              <net.java.amateras.db.visual.model.ColumnModel>
+                <columnName>FILE_PTH</columnName>
+                <logicalName>첨부파일경로</logicalName>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+                <size>200</size>
+                <notNull>false</notNull>
+                <primaryKey>false</primaryKey>
+                <description></description>
+                <autoIncrement>false</autoIncrement>
+                <defaultValue></defaultValue>
+              </net.java.amateras.db.visual.model.ColumnModel>
+              <net.java.amateras.db.visual.model.ColumnModel>
+                <columnName>FILE_CPCT</columnName>
+                <logicalName>첨부파일용량</logicalName>
+                <columnType class="net.java.amateras.db.dialect.ColumnType">
+                  <name>INT</name>
+                  <logicalName>Integer</logicalName>
+                  <supportSize>false</supportSize>
+                  <type>4</type>
+                </columnType>
+                <size>10</size>
+                <notNull>false</notNull>
+                <primaryKey>false</primaryKey>
+                <description></description>
+                <autoIncrement>false</autoIncrement>
+                <defaultValue></defaultValue>
+              </net.java.amateras.db.visual.model.ColumnModel>
+            </columns>
+            <indices/>
+            <backgroundColor>
+              <red>255</red>
+              <green>255</green>
+              <blue>206</blue>
+            </backgroundColor>
+            <sql></sql>
+          </source>
+          <target class="net.java.amateras.db.visual.model.TableModel" reference="../../.."/>
+          <foreignKeyName>TB_SAMPLE_FILE_YTS_FK_1</foreignKeyName>
+          <references/>
+        </net.java.amateras.db.visual.model.ForeignKeyModel>
+      </targetConnections>
+      <error></error>
+      <linkedPath></linkedPath>
+      <tableName>TB_SAMPLE_YTS</tableName>
+      <logicalName>게시글정보 테이블</logicalName>
+      <description></description>
+      <columns>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>POST_ID</columnName>
+          <logicalName>게시글번호</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel/columnType"/>
+          <size>10</size>
+          <notNull>true</notNull>
+          <primaryKey>true</primaryKey>
+          <description></description>
+          <autoIncrement>true</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>POST_TITLE</columnName>
+          <logicalName>게시글제목</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+          <size>200</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>CONT_CTT</columnName>
+          <logicalName>게시글내용</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType">
+            <name>OTHER</name>
+            <logicalName>Etc</logicalName>
+            <supportSize>false</supportSize>
+            <type>1111</type>
+          </columnType>
+          <size>10</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description>CLOB TYPE</description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>REGR_EMPNO</columnName>
+          <logicalName>게시글등록자</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+          <size>30</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>REG_DT</columnName>
+          <logicalName>게시글등록일자</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel[4]/columnType"/>
+          <size>10</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>MDFR_EMPNO</columnName>
+          <logicalName>게시글수정자</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+          <size>30</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>MDFCN_DT</columnName>
+          <logicalName>게시글수정일자</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel[4]/columnType"/>
+          <size>10</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>USE_YN</columnName>
+          <logicalName>게시글사용여부</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+          <size>1</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue>&apos;Y&apos;</defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>DEL_EMPNO</columnName>
+          <logicalName>게시글삭제자</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+          <size>30</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>DEL_DT</columnName>
+          <logicalName>게시글삭제일자</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel[4]/columnType"/>
+          <size>10</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+      </columns>
+      <indices/>
+      <backgroundColor>
+        <red>255</red>
+        <green>255</green>
+        <blue>206</blue>
+      </backgroundColor>
+      <sql>&#xd;
+  CREATE TABLE &quot;MCLINK&quot;.&quot;TB_SAMPLE_YTS&quot; &#xd;
+   (	&quot;CONT_ID&quot; NUMBER(10,0) NOT NULL ENABLE, &#xd;
+	&quot;CONT_TITLE&quot; VARCHAR2(200), &#xd;
+	&quot;CONT_CTT&quot; CLOB, &#xd;
+	&quot;REGR_EMPNO&quot; VARCHAR2(30), &#xd;
+	&quot;REG_DT&quot; DATE, &#xd;
+	&quot;MDFR_EMPNO&quot; VARCHAR2(30), &#xd;
+	&quot;MDFCN_DT&quot; DATE, &#xd;
+	&quot;USE_YN&quot; VARCHAR2(1) DEFAULT &apos;Y&apos;, &#xd;
+	&quot;DEL_DT&quot; DATE, &#xd;
+	&quot;DEL_EMPNO&quot; VARCHAR2(30), &#xd;
+	 CONSTRAINT &quot;TB_SAMPLE_YTS_PK&quot; PRIMARY KEY (&quot;CONT_ID&quot;)&#xd;
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS &#xd;
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645&#xd;
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)&#xd;
+  TABLESPACE &quot;MCLINK&quot;  ENABLE, &#xd;
+	 CONSTRAINT &quot;TB_SAMPLE_REGR_EMPNO_FK&quot; FOREIGN KEY (&quot;REGR_EMPNO&quot;)&#xd;
+	  REFERENCES &quot;MCLINK&quot;.&quot;TB_SAMPLE_LOGIN_YTS&quot; (&quot;EMP_NO&quot;) ON DELETE SET NULL ENABLE, &#xd;
+	 CONSTRAINT &quot;TB_SAMPLE_MDFR_EMPNO_FK&quot; FOREIGN KEY (&quot;MDFR_EMPNO&quot;)&#xd;
+	  REFERENCES &quot;MCLINK&quot;.&quot;TB_SAMPLE_LOGIN_YTS&quot; (&quot;EMP_NO&quot;) ON DELETE SET NULL ENABLE, &#xd;
+	 CONSTRAINT &quot;TB_SAMPLE_DEL_EMPNO_FK&quot; FOREIGN KEY (&quot;DEL_EMPNO&quot;)&#xd;
+	  REFERENCES &quot;MCLINK&quot;.&quot;TB_SAMPLE_LOGIN_YTS&quot; (&quot;EMP_NO&quot;) ON DELETE SET NULL ENABLE&#xd;
+   ) SEGMENT CREATION IMMEDIATE &#xd;
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING&#xd;
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645&#xd;
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)&#xd;
+  TABLESPACE &quot;MCLINK&quot; &#xd;
+ LOB (&quot;CONT_CTT&quot;) STORE AS BASICFILE (&#xd;
+  TABLESPACE &quot;MCLINK&quot; ENABLE STORAGE IN ROW CHUNK 8192 RETENTION &#xd;
+  NOCACHE LOGGING &#xd;
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645&#xd;
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)) &#xd;
+ &#xd;
+&#xd;
+   COMMENT ON COLUMN &quot;MCLINK&quot;.&quot;TB_SAMPLE_YTS&quot;.&quot;CONT_ID&quot; IS &apos;게시글 번호&apos;&#xd;
+ &#xd;
+   COMMENT ON COLUMN &quot;MCLINK&quot;.&quot;TB_SAMPLE_YTS&quot;.&quot;CONT_TITLE&quot; IS &apos;게시글 제목&apos;&#xd;
+ &#xd;
+   COMMENT ON COLUMN &quot;MCLINK&quot;.&quot;TB_SAMPLE_YTS&quot;.&quot;CONT_CTT&quot; IS &apos;게시글 내용&apos;&#xd;
+ &#xd;
+   COMMENT ON COLUMN &quot;MCLINK&quot;.&quot;TB_SAMPLE_YTS&quot;.&quot;REGR_EMPNO&quot; IS &apos;등록자&apos;&#xd;
+ &#xd;
+   COMMENT ON COLUMN &quot;MCLINK&quot;.&quot;TB_SAMPLE_YTS&quot;.&quot;REG_DT&quot; IS &apos;등록일자&apos;&#xd;
+ &#xd;
+   COMMENT ON COLUMN &quot;MCLINK&quot;.&quot;TB_SAMPLE_YTS&quot;.&quot;MDFR_EMPNO&quot; IS &apos;수정자&apos;&#xd;
+ &#xd;
+   COMMENT ON COLUMN &quot;MCLINK&quot;.&quot;TB_SAMPLE_YTS&quot;.&quot;MDFCN_DT&quot; IS &apos;수정일자&apos;&#xd;
+ &#xd;
+   COMMENT ON COLUMN &quot;MCLINK&quot;.&quot;TB_SAMPLE_YTS&quot;.&quot;USE_YN&quot; IS &apos;사용여부&apos;&#xd;
+ &#xd;
+   COMMENT ON COLUMN &quot;MCLINK&quot;.&quot;TB_SAMPLE_YTS&quot;.&quot;DEL_DT&quot; IS &apos;삭제일자&apos;&#xd;
+ &#xd;
+   COMMENT ON COLUMN &quot;MCLINK&quot;.&quot;TB_SAMPLE_YTS&quot;.&quot;DEL_EMPNO&quot; IS &apos;삭제자&apos;&#xd;
+ &#xd;
+&#xd;
+</sql>
+    </net.java.amateras.db.visual.model.TableModel>
+    <net.java.amateras.db.visual.model.TableModel>
+      <listeners serialization="custom">
+        <java.beans.PropertyChangeSupport>
+          <default>
+            <source class="net.java.amateras.db.visual.model.TableModel" reference="../../../.."/>
+            <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+          </default>
+          <null/>
+        </java.beans.PropertyChangeSupport>
+      </listeners>
+      <constraint>
+        <height>-1</height>
+        <width>-1</width>
+        <x>185</x>
+        <y>426</y>
+      </constraint>
+      <sourceConnections/>
+      <targetConnections/>
+      <error></error>
+      <linkedPath></linkedPath>
+      <tableName>TB_SAMPLE_LOGIN_YTS</tableName>
+      <logicalName>사원정보 테이블</logicalName>
+      <description>&#xd;
+  CREATE TABLE &quot;MCLINK&quot;.&quot;TB_SAMPLE_LOGIN_YTS&quot; &#xd;
+   (	&quot;EMP_NO&quot; VARCHAR2(30) NOT NULL ENABLE, &#xd;
+	&quot;EMP_NM&quot; VARCHAR2(20), &#xd;
+	&quot;USE_YN&quot; VARCHAR2(1) DEFAULT &apos;Y&apos; NOT NULL ENABLE, &#xd;
+	 CONSTRAINT &quot;TB_SAMPLE_LOGIN_YTS_PK&quot; PRIMARY KEY (&quot;EMP_NO&quot;)&#xd;
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS &#xd;
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645&#xd;
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)&#xd;
+  TABLESPACE &quot;MCLINK&quot;  ENABLE&#xd;
+   ) SEGMENT CREATION IMMEDIATE &#xd;
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING&#xd;
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645&#xd;
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)&#xd;
+  TABLESPACE &quot;MCLINK&quot; &#xd;
+ &#xd;
+&#xd;
+   COMMENT ON COLUMN &quot;MCLINK&quot;.&quot;TB_SAMPLE_LOGIN_YTS&quot;.&quot;EMP_NO&quot; IS &apos;사원번호&apos;&#xd;
+ &#xd;
+   COMMENT ON COLUMN &quot;MCLINK&quot;.&quot;TB_SAMPLE_LOGIN_YTS&quot;.&quot;EMP_NM&quot; IS &apos;사원명&apos;&#xd;
+ &#xd;
+   COMMENT ON COLUMN &quot;MCLINK&quot;.&quot;TB_SAMPLE_LOGIN_YTS&quot;.&quot;USE_YN&quot; IS &apos;사용여부&apos;&#xd;
+ &#xd;
+&#xd;
+</description>
+      <columns>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>EMPNO</columnName>
+          <logicalName>사원번호</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../../net.java.amateras.db.visual.model.TableModel/targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+          <size>30</size>
+          <notNull>true</notNull>
+          <primaryKey>true</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>EMPNM</columnName>
+          <logicalName>사원명</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../../net.java.amateras.db.visual.model.TableModel/targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+          <size>20</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>USE_YN</columnName>
+          <logicalName>사원사용여부</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../../net.java.amateras.db.visual.model.TableModel/targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+          <size>1</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue>&apos;Y&apos;</defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+      </columns>
+      <indices/>
+      <backgroundColor>
+        <red>255</red>
+        <green>255</green>
+        <blue>206</blue>
+      </backgroundColor>
+      <sql></sql>
+    </net.java.amateras.db.visual.model.TableModel>
+    <net.java.amateras.db.visual.model.TableModel reference="../net.java.amateras.db.visual.model.TableModel/targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source"/>
+  </children>
+  <dommains/>
+  <dialectName>hsqldb</dialectName>
+  <logicalMode>true</logicalMode>
+  <jarFile>D:\development\git\eGovFramework-thymeleaef\practice_eGov_thymeleaf\src\main\webapp\WEB-INF\lib\project\ojdbc6\11.2.0.3\ojdbc6-11.2.0.3.jar</jarFile>
+  <jdbcDriver>oracle.jdbc.OracleDriver</jdbcDriver>
+  <jdbcUrl>jdbc:oracle:thin:@192.168.1.77:1522:ora11</jdbcUrl>
+  <jdbcUser>mclink</jdbcUser>
+  <jdbcPassword>mclink</jdbcPassword>
+  <jdbcSchema></jdbcSchema>
+  <jdbcCatalog></jdbcCatalog>
+  <includeView>false</includeView>
+  <fontData></fontData>
+</net.java.amateras.db.visual.model.RootModel>
