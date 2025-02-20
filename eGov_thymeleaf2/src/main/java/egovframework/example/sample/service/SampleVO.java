@@ -33,42 +33,39 @@ import java.util.Date;
  *
  *  Copyright (C) by MOPAS All right reserved.
  */
-public class SampleVO extends SampleDefaultVO {
+public class SampleVO extends SampleSearchVO {
 
 	private static final long serialVersionUID = 1L;
 
-	/** 게시글 번호 */
+	/** 게시글 ID */
 	private String postId;
 
-	/** 게시글 제목 */
+	/** 게시글제목 */
 	private String postTitle;
 
-	/** 게시글 내용 */
+	/** 게시글내용 */
 	private String postCtt;
 	
-	/** 게시글 작성자 */
+	/** 작성자사원번호 */
 	private String regrEmpno;
 	
-	/** 게시글 작성일 */
+	/** 작성일시 */
 	private Date regDt;
 	
-	/** 게시글 수정자 */
+	/** 수정자사원번호 */
 	private String mdfrEmpno;
 	
-	/** 게시글 수정일 */
+	/** 수정일시 */
 	private Date mdfcnDt;
 	
-	/** 사용여부 */
-	private String useYn;
+	/** 삭제여부 */
+	private String delYn;
 	
-	/** 게시글 삭제일 */
+	/** 삭제일시 */
 	private Date delDt;
 	
-	/** 게시글 삭제자 */
+	/** 삭제자사원번호 */
 	private String delEmpno;
-
-	/** 등록자 */
-	private String regUser;
 
     public String getPostId() {
         return postId;
@@ -108,5 +105,45 @@ public class SampleVO extends SampleDefaultVO {
 
     public void setRegDt(Date regDt) {
         this.regDt = regDt;
+    }
+    
+    public String getMdfrEmpno() {
+        return mdfrEmpno;
+    }
+
+    public void setMdfrEmpno(String mdfrEmpno) {
+        this.mdfrEmpno = mdfrEmpno;
+    }
+    
+    public Date getMdfcnDt() {
+        return mdfcnDt;
+    }
+
+    public void setMdfcnDt(Date mdfcnDt) {
+        this.mdfcnDt = mdfcnDt;
+    }
+    
+    public Date getDelDt() {
+        return delDt;
+    }
+
+    public void setDelDt(Date delDt) {
+        this.delDt = delDt;
+    }
+    
+    public String getDelEmpno() {
+        return delEmpno;
+    }
+
+    public void setDelEmpno(String delEmpno) {
+        this.delEmpno = delEmpno;
+    }
+    
+    public String getdelYn() {
+        return delYn;
+    }
+
+    public void setDelYn(String delYn) {
+        this.delYn = delYn;
     }
 }
