@@ -63,9 +63,9 @@
    </bean>
 
    <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
-   	<!-- 윤택선: 한글 설정 -->
-   	  <property name="characterEncoding" value="UTF-8" />
+   	  <!-- 윤택선: 서버에서 응답을 한글로 정상적으로 보냄 -->
       <property name="templateEngine" ref="templateEngine" />
+	  <property name="characterEncoding" value="UTF-8" />      
    </bean>      
  
     <!-- For Pagination Tag -->
@@ -79,6 +79,12 @@
         </property>
     </bean>
 	<!-- /For Pagination Tag -->
+	
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/images/**" location="/images/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	
+	<mvc:annotation-driven />
 
     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
 </beans>
