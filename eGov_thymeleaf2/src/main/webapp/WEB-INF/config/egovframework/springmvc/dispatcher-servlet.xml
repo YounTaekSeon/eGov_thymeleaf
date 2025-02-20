@@ -33,13 +33,13 @@
     </bean>
 
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <property name="defaultErrorView" value="cmmn/egovError"/>
+        <property name="defaultErrorView" value="common/common_error"/>
         <property name="exceptionMappings">
             <props>
                 <prop key="org.springframework.dao.DataAccessException">cmmn/dataAccessFailure</prop>
                 <prop key="org.springframework.transaction.TransactionException">cmmn/transactionFailure</prop>
-                <prop key="org.egovframe.rte.fdl.cmmn.exception.EgovBizException">cmmn/egovError</prop>
-                <prop key="org.springframework.security.AccessDeniedException">cmmn/egovError</prop>
+                <prop key="org.egovframe.rte.fdl.cmmn.exception.EgovBizException">common/error</prop>
+                <prop key="org.springframework.security.AccessDeniedException">common/error</prop>
             </props>
         </property>
     </bean>
