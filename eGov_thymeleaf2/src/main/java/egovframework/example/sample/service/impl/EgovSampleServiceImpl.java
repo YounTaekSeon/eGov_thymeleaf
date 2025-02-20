@@ -18,7 +18,7 @@ package egovframework.example.sample.service.impl;
 import java.util.List;
 
 import egovframework.example.sample.service.EgovSampleService;
-import egovframework.example.sample.service.SampleDefaultVO;
+import egovframework.example.sample.service.SampleSearchVO;
 import egovframework.example.sample.service.SampleVO;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
@@ -108,8 +108,8 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * @exception Exception
 	 */
 	@Override
-	public SampleVO selectSample(SampleVO vo) throws Exception {
-		SampleVO resultVO = sampleDAO.selectSample(vo);
+	public SampleVO selectPostById(int postId) throws Exception {
+		SampleVO resultVO = sampleDAO.selectPostById(postId);
 		if (resultVO == null)
 			throw processException("info.nodata.msg");
 		return resultVO;
@@ -122,8 +122,8 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * @exception Exception
 	 */
 	@Override
-	public List<SampleVO> selectSampleList(SampleDefaultVO searchVO) throws Exception {
-		return sampleDAO.selectSampleList(searchVO);
+	public List<SampleVO> selectPostList(SampleSearchVO searchVO) throws Exception {
+		return sampleDAO.selectPostList(searchVO);
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * @exception
 	 */
 	@Override
-	public int selectSampleListTotCnt(SampleDefaultVO searchVO) {
+	public int selectSampleListTotCnt(SampleSearchVO searchVO) {
 		return sampleDAO.selectSampleListTotCnt(searchVO);
 	}
 
