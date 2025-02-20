@@ -10,28 +10,42 @@
 		<result property="regDt" 		column="REG_DT"/>
 		<result property="mdfrEmpno" 	column="MDFR_EMPNO"/>
 		<result property="mdfcnDt" 		column="MDFCN_DT"/>
-		<result property="useYn" 		column="USE_YN"/>
+		<result property="delYn" 		column="DEL_YN"/>
 		<result property="delDt" 		column="DEL_DT"/>
 		<result property="delEmpno" 	column="DEL_EMPNO"/>
 	</resultMap>
 	
-	<select id="selectSampleList" parameterType="searchVO" resultType="egovMap">
-
-			SELECT
-					POST_ID, POST_TITLE, POST_CTT, REGR_EMPNO, REG_DT, MDFR_EMPNO, MDFCN_DT
+	<select id="selectPostList" parameterType="searchVO" resultType="egovMap">
+			SELECT  POST_ID, 
+					POST_TITLE, 
+					POST_CTT, 
+					REGR_EMPNO, 
+					REG_DT, 
+					MDFR_EMPNO, 
+					MDFCN_DT
 			FROM 	TB_SAMPLE_YTS
-			WHERE 	1=1 AND USE_YN = 'Y'
+			WHERE 	1=1 
+			AND 	DEL_YN = 'N'
 			<if test="searchKeyword != null and searchKeyword != ''">
 		        <choose>
 		            <when test="searchCondition == 0">
-						AND	ID LIKE '%' || #{searchKeyword} || '%'
+						AND	REGR_EMPNO LIKE '%' || #{searchKeyword} || '%'
 					</when>
 		            <when test="searchCondition == 1">
-						AND	NAME LIKE '%' || #{searchKeyword} || '%'
+		            	AND	POST_TITLE LIKE '%' || #{searchKeyword} || '%'
 					</when>
 				</choose>
-			</if>			
-			ORDER BY POST_ID DESC
+			</if>
+	</select>
+	
+	<select id="selectPostById" parameterType="long" resultType="egovframework.example.sample.service.SampleVO">
+		    SELECT 	POST_ID, 
+		    		POST_TITLE, 
+		    		POST_CTT,  
+		    		REGR_EMPNO,  
+		    		REG_DT 
+		    FROM 	SAMPLE_POST 
+		    WHERE 	POST_ID = #{postId}
 	</select>
 
 </mapper>
