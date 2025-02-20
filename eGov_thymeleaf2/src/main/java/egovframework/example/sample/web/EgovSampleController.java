@@ -18,7 +18,7 @@ package egovframework.example.sample.web;
 import java.util.List;
 
 import egovframework.example.sample.service.EgovSampleService;
-import egovframework.example.sample.service.SampleDefaultVO;
+import egovframework.example.sample.service.SampleSearchVO;
 import egovframework.example.sample.service.SampleVO;
 
 import org.slf4j.LoggerFactory;
@@ -29,6 +29,8 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @Class Name : EgovSampleController.java
@@ -58,15 +60,44 @@ public class EgovSampleController {
 		this.sampleService = sampleService;		
 	}
 	
-	@GetMapping("/test.do")
-	public String getSampleList(@ModelAttribute("sampleDefaultVo") SampleDefaultVO sampleVo,Model model) throws Exception {
-		List<SampleVO> sampleList = sampleService.selectSampleList(sampleVo);
-		model.addAttribute("sampleList", sampleList);
+	@GetMapping(value = "/post_list.do")
+	public String getSampleList(@ModelAttribute SampleSearchVO searchVO, Model model) throws Exception {
+		List<SampleVO> postList = sampleService.selectPostList(searchVO);
+		model.addAttribute("postList", postList);
+		model.addAttribute("searchVO", searchVO);
+				
+		log.info("Sample List: {}", postList);
 		
-		log.info("Sample List: {}", sampleList);
-		
-		return "home";
+		return "post_list";
 	}
 	
+	@PostMapping("/post_list.do")
+	public String searchSampleList(@ModelAttribute SampleSearchVO searchVO, Model model) throws Exception {
+		log.info("searchVO: {}", searchVO);
+		log.info("searchCondition: {}", searchVO.getSearchCondition());
+	    log.info("searchKeyword: {}", searchVO.getSearchKeyword());
+	    
+	    List<SampleVO> postList = sampleService.selectPostList(searchVO);
+	    model.addAttribute("postList", postList);
+	    model.addAttribute("searchVO", searchVO);
+		
+		return "post_list";
+	}
+	
+	@GetMapping("/post_view/{postId}")
+	public String getPostDetail(@PathVariable("postId") int postId, Model model) throws Exception {
+		SampleVO postDetail = sampleService.selectPostById(postId);
+		log.info("Post: {}", postDetail);
+		
+		if(postDetail == null) {
+			model.addAttribute("errorMessage", "해당 게시글이 존재하지 않습니다.");
+			
+			return "common/error_404";			
+		}
+		
+		model.addAttribute("postDetail", postDetail);
+		
+		return "post_view";
+	}
 	 
 }

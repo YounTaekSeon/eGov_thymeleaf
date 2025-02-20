@@ -65,7 +65,7 @@ public interface EgovSampleService {
 	 * @return 조회한 글
 	 * @exception Exception
 	 */
-	SampleVO selectSample(SampleVO vo) throws Exception;
+	SampleVO selectPostById(int postId ) throws Exception;
 
 	/**
 	 * 글 목록을 조회한다.
@@ -73,7 +73,7 @@ public interface EgovSampleService {
 	 * @return 글 목록
 	 * @exception Exception
 	 */
-	List<SampleVO> selectSampleList(SampleDefaultVO searchVO) throws Exception;
+	List<SampleVO> selectPostList(SampleSearchVO searchVO) throws Exception;
 
 	/**
 	 * 글 총 갯수를 조회한다.
@@ -81,6 +81,6 @@ public interface EgovSampleService {
 	 * @return 글 총 갯수
 	 * @exception
 	 */
-	int selectSampleListTotCnt(SampleDefaultVO searchVO);
+	int selectSampleListTotCnt(SampleSearchVO searchVO);
 
 }

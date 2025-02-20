@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/egovframework/sample.css}" />
+	<title>윤택선</title>
+	<script type="text/javascript">	
+	</script>
+</head>
+<body style="text-align:center; margin:0 auto; display:inline; padding-top:100px;">
+	<!-- 게시판 헤더 -->
+	<div id="pageHeader">
+	<!-- TODO: 함수로 불러내기 -->
+		<h1>게시판 목록</h1>
+		<a>홈</a>
+		<span> > </span>
+		<a>게시판 목록</a>
+	</div>
+	<!-- 게시판 내용 -->
+	<div id="pageContent">
+		<form method="post" th:action="@{/post_list.do}" th:object="${searchVO}">
+			<input type="hidden" id="selectedId" name="selectedId">
+			<!-- 검색 -->
+			<div id="search">
+				<ul>
+					<li>
+						<select th:field="*{searchCondition}">		<!-- field 사용 이유: searchVO.searchCondition에 자동으로 바인딩, name="searchCondition"이 자동으로 설정 -->
+							<option value="" th:text="검색분류" selected></option>
+							<option value="0" th:text="이름"></option>
+							<option value="1" th:text="제목"></option>
+						</select>
+					</li>
+					<li>
+						<label for="searchKeyword" class="visually-hidden"></label>
+						<input type="text" class="txt" th:field="*{searchKeyword}" placeholder="검색어 입력" />
+					</li>
+					<li>
+						<span class="btn_blue_1">
+							<!--  
+							<a href="post_list.html" th:href="@{/post_list(searchCondition=*{searchCondition}, searchKeyword=*{searchKeyword})}" th:text="검색"></a>
+							<img th:src="@{/images/egovframework/example/btn_bg_r.gif}" th:style="${'margin-left:6px'}" alt="" />
+							-->
+							<button type="submit" th:text="#{button.search}"></button>
+						</span>
+					</li>
+				</ul>
+			</div>
+			<!-- 게시글 리스트 -->
+			<div id="table" width="100%" >
+				<table width="100%" >
+					<caption>
+					</caption>
+					<colgroup>
+						<col />
+						<col width="*"/>
+						<col />
+						<col />
+					</colgroup>
+					<tr>
+						<th>No</th>
+						<th>제목</th>
+						<th>글쓴이</th>
+						<th>작성일</th>
+					</tr>
+					<tr th:each="result : ${postList}">
+						<td th:text="${result.postId}"></td>
+						<td>
+							<a th:href="@{/post_view/{postId}(postId=${result.postId})}" th:text="${result.postTitle}"></a>
+						</td>
+						<td th:text="${result.regrEmpno}"></td>
+						<td th:text="${result.regDt}"></td>
+					</tr>
+				</table>
+			</div>
+			<!-- 등록버튼 -->
+			<div id="regist" name="regist">
+				<button id="sampleRegistBtn" name="sampleRegistBtn" th:text="글쓰기">
+				</button>
+			</div>
+			<!-- 페이징 -->
+			<div id="paging">
+				<input type="hidden" id="pageIndex" name="pageIndex" th:value=1 />
+			</div>
+		</form>
+	</div>		
+</body>
+</html>
