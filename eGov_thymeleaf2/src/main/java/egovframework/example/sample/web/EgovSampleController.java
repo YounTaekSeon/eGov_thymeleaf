@@ -18,6 +18,7 @@ package egovframework.example.sample.web;
 import java.util.List;
 
 import egovframework.example.sample.service.EgovSampleService;
+import egovframework.example.sample.service.EmployeeVO;
 import egovframework.example.sample.service.SampleSearchVO;
 import egovframework.example.sample.service.SampleVO;
 
@@ -60,7 +61,7 @@ public class EgovSampleController {
 		this.sampleService = sampleService;		
 	}
 	
-	@GetMapping(value = "/post_list.do")
+	@GetMapping(value = "/post_list")
 	public String getSampleList(@ModelAttribute SampleSearchVO searchVO, Model model) throws Exception {
 		List<SampleVO> postList = sampleService.selectPostList(searchVO);
 		model.addAttribute("postList", postList);
@@ -71,7 +72,7 @@ public class EgovSampleController {
 		return "post_list";
 	}
 	
-	@PostMapping("/post_list.do")
+	@PostMapping("/post_list")
 	public String searchSampleList(@ModelAttribute SampleSearchVO searchVO, Model model) throws Exception {
 		log.info("searchVO: {}", searchVO);
 		log.info("searchCondition: {}", searchVO.getSearchCondition());
