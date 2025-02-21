@@ -20,8 +20,8 @@ import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * @Class Name : SampleDefaultVO.java
- * @Description : SampleDefaultVO Class
+ * @Class Name : SampleSearchVO.java
+ * @Description : SampleSearchVO Class
  * @Modification Information
  * @
  * @  수정일      수정자              수정내용
