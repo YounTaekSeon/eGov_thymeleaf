@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <link type="text/css" rel="stylesheet" th:href="@{/css/egovframework/sample.css}" />
 	<title>윤택선</title>
-	<script type="text/javascript">	
+	<script type="text/javascript">
 	</script>
 </head>
 <body style="text-align:center; margin:0 auto; display:inline; padding-top:100px;">
@@ -20,14 +20,13 @@
 	</div>
 	<!-- 게시판 내용 -->
 	<div id="pageContent">
-		<form method="post" th:action="@{/post_list.do}" th:object="${searchVO}">
+		<form method="post" th:action="@{/post_list}" th:object="${searchVO}">
 			<input type="hidden" id="selectedId" name="selectedId">
 			<!-- 검색 -->
 			<div id="search">
 				<ul>
 					<li>
 						<select th:field="*{searchCondition}">		<!-- field 사용 이유: searchVO.searchCondition에 자동으로 바인딩, name="searchCondition"이 자동으로 설정 -->
-							<option value="" th:text="검색분류" selected></option>
 							<option value="0" th:text="이름"></option>
 							<option value="1" th:text="제목"></option>
 						</select>
@@ -76,8 +75,7 @@
 			</div>
 			<!-- 등록버튼 -->
 			<div id="regist" name="regist">
-				<button id="sampleRegistBtn" name="sampleRegistBtn" th:text="글쓰기">
-				</button>
+				<a th:href="@{/post_create}" th:text="글쓰기"></a>
 			</div>
 			<!-- 페이징 -->
 			<div id="paging">

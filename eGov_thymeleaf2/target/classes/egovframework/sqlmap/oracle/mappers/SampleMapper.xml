@@ -15,24 +15,31 @@
 		<result property="delEmpno" 	column="DEL_EMPNO"/>
 	</resultMap>
 	
+	<resultMap id="employee" type="egovframework.example.sample.service.EmployeeVO">
+		<result property="empno" 		column="EMPNO"/>
+		<result property="empnm" 		column="EMPNM"/>
+		<result property="delYn" 		column="DEL_YN"/>
+	</resultMap>	
+	
 	<select id="selectPostList" parameterType="searchVO" resultType="egovMap">
-			SELECT  POST_ID, 
-					POST_TITLE, 
-					POST_CTT, 
-					REGR_EMPNO, 
-					REG_DT, 
-					MDFR_EMPNO, 
-					MDFCN_DT
-			FROM 	TB_SAMPLE_YTS
-			WHERE 	1=1 
-			AND 	DEL_YN = 'N'
+			SELECT  A.POST_ID, 
+					A.POST_TITLE, 
+					A.POST_CTT, 
+					A.REGR_EMPNO, 
+					A.REG_DT, 
+					A.MDFR_EMPNO, 
+					A.MDFCN_DT
+			FROM 	TB_SAMPLE_YTS A
+			LEFT JOIN TB_SAMPLE_LOGIN_YTS B
+			ON		A.REGR_EMPNO = B.EMPNO 
+			WHERE	A.DEL_YN = 'N'
 			<if test="searchKeyword != null and searchKeyword != ''">
 		        <choose>
 		            <when test="searchCondition == 0">
-						AND	REGR_EMPNO LIKE '%' || #{searchKeyword} || '%'
+						AND	B.EMPNM LIKE '%' || #{searchKeyword} || '%'
 					</when>
 		            <when test="searchCondition == 1">
-		            	AND	POST_TITLE LIKE '%' || #{searchKeyword} || '%'
+		            	AND	A.POST_TITLE LIKE '%' || #{searchKeyword} || '%'
 					</when>
 				</choose>
 			</if>
@@ -44,8 +51,15 @@
 		    		POST_CTT,  
 		    		REGR_EMPNO,  
 		    		REG_DT 
-		    FROM 	SAMPLE_POST 
+		    FROM 	TB_SAMPLE_YTS 
 		    WHERE 	POST_ID = #{postId}
+	</select>
+	
+	<select id="selectEmployeeById" parameterType="employeeVO" resultType="egovframework.example.sample.service.EmployeeVO">
+		    SELECT 	EMPNO, 
+		    		EMPNM
+		    FROM 	TB_SAMPLE_LOGIN_YTS 
+		    WHERE 	EMPNO = #{empno}
 	</select>
 
 </mapper>
