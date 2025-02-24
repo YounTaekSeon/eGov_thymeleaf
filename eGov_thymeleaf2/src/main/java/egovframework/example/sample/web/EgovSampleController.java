@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 
 import egovframework.example.sample.service.EgovSampleService;
 import egovframework.example.sample.service.EmployeeVO;
+import egovframework.example.sample.service.PostVO;
 import egovframework.example.sample.service.SampleSearchVO;
 import egovframework.example.sample.service.SampleVO;
 
@@ -60,8 +61,13 @@ public class EgovSampleController {
 		this.sampleService = sampleService;
 	}
 
+	/**
+	 * 게시글 리스트 화면 호출.
+	 * @return post_list.html
+	 * @exception Exception
+	 */
 	@GetMapping(value = "/post_list")
-	public String getSampleList(@ModelAttribute SampleSearchVO searchVO, HttpSession session, Model model) throws Exception {
+	public String getPostList(@ModelAttribute SampleSearchVO searchVO, HttpSession session, Model model) throws Exception {
 
 		// 로그인 정보가 세션에 없으면 자동 로그인
 		if (session.getAttribute("loggedInUser") == null) {
@@ -73,7 +79,7 @@ public class EgovSampleController {
 		
 		log.info("현재 세션 사용자: {}", session.getAttribute("loggedInUser"));
 
-		List<SampleVO> postList = sampleService.selectPostList(searchVO);
+		List<PostVO> postList = sampleService.selectPostList(searchVO);
 		model.addAttribute("postList", postList);
 		model.addAttribute("searchVO", searchVO);
 
@@ -81,67 +87,99 @@ public class EgovSampleController {
 
 		return "post_list";
 	}
-
+	
+	/**
+	 * 검색 후 게시글 리스트 호출.
+	 * @return post_list.html
+	 * @exception Exception
+	 */
 	@PostMapping("/post_list")
-	public String searchSampleList(@ModelAttribute SampleSearchVO searchVO, Model model) throws Exception {
+	public String searchPostList(@ModelAttribute SampleSearchVO searchVO, Model model) throws Exception {
 		/*
 		 * log.info("searchVO: {}", searchVO); log.info("searchCondition: {}",
 		 * searchVO.getSearchCondition()); log.info("searchKeyword: {}",
 		 * searchVO.getSearchKeyword());
 		 */
 
-		List<SampleVO> postList = sampleService.selectPostList(searchVO);
+		List<PostVO> postList = sampleService.selectPostList(searchVO);
 		model.addAttribute("postList", postList);
 		model.addAttribute("searchVO", searchVO);
 
 		return "post_list";
 	}
 	
+	/**
+	 * 게시글 상세화면 호출.
+	 * @return post_view.html
+	 * @exception Exception
+	 */
 	@GetMapping("/post_view/{postId}")
-	public String getPostDetail(@PathVariable("postId") int postId, Model model) throws Exception {
-		SampleVO postDetail = sampleService.selectPostById(postId);
-		log.info("Post: {}", postDetail);
+	public String getPostView(@PathVariable("postId") String postId, Model model) throws Exception {
+	    try {
+	        PostVO postDetail = sampleService.selectPostById(postId);
+	        log.info("Post: {}", postDetail);
 
-		if (postDetail == null) {
-			model.addAttribute("errorMessage", "해당 게시글이 존재하지 않습니다.");
+	        if (postDetail == null) {
+	        	model.addAttribute("errorMessage", "데이터 없음");
+	            return "common/common_error";
+	        }
 
-			return "common/error_404";
-		}
+	        model.addAttribute("postDetail", postDetail);
+	        return "post_view";
 
-		model.addAttribute("postDetail", postDetail);
-
-		return "post_view";
+	    } catch (Exception e) {
+	        model.addAttribute("errorMessage", e.getMessage());
+	        return "common/common_error";
+	    }
 	}	
 
+	/**
+	 * 게시글 작성화면 호출.
+	 * @return post_create.html
+	 * @exception Exception
+	 */	
 	@GetMapping(value = "/post_create")
 	public String addPost(HttpSession session, Model model) throws Exception {
-		EmployeeVO loggedInUser = (EmployeeVO) session.getAttribute("loggedInUser");
-		
-	    if (loggedInUser == null) {
-	        loggedInUser = new EmployeeVO(); // 빈 객체 생성
-	        loggedInUser.setEmpnm("Guest"); // 기본값 설정
-	        loggedInUser.setEmpno("000000"); // 기본 empno 설정
-	    }
-	    
+	    EmployeeVO loggedInUser = getLoggedInUser(session);
+
 	    SampleVO sampleVO = new SampleVO();
 	    sampleVO.setRegrEmpno(loggedInUser.getEmpno());
-	    
-		model.addAttribute("employeeVO", loggedInUser);
-		model.addAttribute("sampleVO", sampleVO);
+
+	    model.addAttribute("employeeVO", loggedInUser);
+	    model.addAttribute("sampleVO", sampleVO);
 
 		return "post_create";
 	}
-	
+
+	/**
+	 * 게시글 작성.
+	 * @return post_create.html
+	 * @exception Exception
+	 */	
 	@PostMapping(value="/post_create")
 	public String savePost(@ModelAttribute SampleVO sampleVO, HttpSession session) throws Exception{
-		EmployeeVO loggedInUser = (EmployeeVO) session.getAttribute("loggedInUser");
-		
-		sampleVO.setRegrEmpno(loggedInUser.getEmpno());
-		
-		sampleService.insertPost(sampleVO);
+	    EmployeeVO loggedInUser = getLoggedInUser(session);
+	    sampleVO.setRegrEmpno(loggedInUser.getEmpno());
+
+	    sampleService.insertPost(sampleVO);
 		
 		return "redirect:/post_list";
 		
 	}
+	
+	/**
+	 * 세션에서 로그인된 사용자 정보를 가져오는 공통 메서드
+	 */
+	private EmployeeVO getLoggedInUser(HttpSession session) {
+	    EmployeeVO loggedInUser = (EmployeeVO) session.getAttribute("loggedInUser");
+
+	    if (loggedInUser == null) {
+	        loggedInUser = new EmployeeVO();
+	        loggedInUser.setEmpnm("Guest");  // 기본 이름
+	        loggedInUser.setEmpno("000000"); // 기본 사번
+	    }
+
+	    return loggedInUser;
+	}	
 
 }

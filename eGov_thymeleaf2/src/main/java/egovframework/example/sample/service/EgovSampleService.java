@@ -17,6 +17,8 @@ package egovframework.example.sample.service;
 
 import java.util.List;
 
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
+
 /**
  * @Class Name : EgovSampleService.java
  * @Description : EgovSampleService Class
@@ -65,7 +67,7 @@ public interface EgovSampleService {
 	 * @return 조회한 글
 	 * @exception Exception
 	 */
-	SampleVO selectPostById(int postId ) throws Exception;
+	PostVO selectPostById(String postId) throws Exception;
 
 	/**
 	 * 글 목록을 조회한다.
@@ -73,7 +75,7 @@ public interface EgovSampleService {
 	 * @return 글 목록
 	 * @exception Exception
 	 */
-	List<SampleVO> selectPostList(SampleSearchVO searchVO) throws Exception;
+	List<PostVO> selectPostList(SampleSearchVO searchVO) throws Exception;
 
 	/**
 	 * 글 총 갯수를 조회한다.
