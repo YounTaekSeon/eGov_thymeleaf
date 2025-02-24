@@ -15,16 +15,19 @@
  */
 package egovframework.example.sample.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import egovframework.example.sample.service.EgovSampleService;
 import egovframework.example.sample.service.EmployeeVO;
+import egovframework.example.sample.service.PostVO;
 import egovframework.example.sample.service.SampleSearchVO;
 import egovframework.example.sample.service.SampleVO;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 
 import javax.annotation.Resource;
 
@@ -73,21 +76,27 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 */
 	@Override
 	public String insertPost(SampleVO sampleVO) throws Exception {
-		String lastPostId = sampleDAO.getLastPostId();
-		
-		String nextPostId = (lastPostId == null || lastPostId.isEmpty()) 
-                			? "00000001" 
-                			: String.format("%08d", Integer.parseInt(lastPostId) + 1);
-		
-		sampleVO.setPostId(nextPostId);
-		
-		sampleDAO.insertPost(sampleVO);
-		
-		LOGGER.info("게시물 등록 완료 ID: {}", nextPostId);
-		
-		return "게시판이 성공적으로 등록되었습니다.";
-	}
+	    // 현재 날짜를 YYYYMMDD 형식으로 가져오기
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	    String today = sdf.format(new Date());
 
+	    // 오늘 날짜 기준으로 등록된 마지막 postId 가져오기
+	    String lastPostId = sampleDAO.getLastPostIdByDate(today);
+
+	    int nextId = (lastPostId == null || lastPostId.isEmpty()) 
+		    		? 1 
+		    		: Integer.parseInt(lastPostId.substring(8)) + 1;
+
+	    String nextPostId = today + String.format("%04d", nextId);
+
+	    sampleVO.setPostId(nextPostId);
+	    sampleDAO.insertPost(sampleVO);
+
+	    LOGGER.info("게시물 등록 완료 ID: {}", nextPostId);
+
+	    return "게시물이 성공적으로 등록되었습니다.";
+	}
+	
 	/**
 	 * 글을 수정한다.
 	 * @param vo - 수정할 정보가 담긴 SampleVO
@@ -117,10 +126,16 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * @exception Exception
 	 */
 	@Override
-	public SampleVO selectPostById(int postId) throws Exception {
-		SampleVO resultVO = sampleDAO.selectPostById(postId);
-		if (resultVO == null)
+	public PostVO selectPostById(String postId) throws Exception {
+		PostVO resultVO = sampleDAO.selectPostById(postId);
+	    LOGGER.debug("selectPostById - postId: {}", postId);
+	    LOGGER.debug("조회 결과: {}", resultVO);
+		
+		if (resultVO == null) {
 			throw processException("info.nodata.msg");
+		}
+		
+		LOGGER.info("게시물 상세 화면 ID: {}", resultVO);
 		return resultVO;
 	}
 
@@ -131,7 +146,7 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * @exception Exception
 	 */
 	@Override
-	public List<SampleVO> selectPostList(SampleSearchVO searchVO) throws Exception {
+	public List<PostVO> selectPostList(SampleSearchVO searchVO) throws Exception {
 		return sampleDAO.selectPostList(searchVO);
 	}
 
@@ -160,6 +175,7 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	    if (resultVO == null) {
 	        throw processException("info.nodata.msg");
 	    }
+	    
 	    return resultVO;
 	}
 

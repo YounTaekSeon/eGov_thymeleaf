@@ -18,10 +18,13 @@ package egovframework.example.sample.service.impl;
 import java.util.List;
 
 import egovframework.example.sample.service.EmployeeVO;
+import egovframework.example.sample.service.PostVO;
 import egovframework.example.sample.service.SampleSearchVO;
 import egovframework.example.sample.service.SampleVO;
 
+import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 
 /**
  * sample에 관한 데이터처리 매퍼 클래스
@@ -38,8 +41,14 @@ import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
  *
  * </pre>
  */
+
+/** 
+ * TODO: sample To post 
+ */
 @Mapper("sampleMapper")
 public interface SampleMapper {
+	
+	String getLastPostIdByDate(@Param("today") String today);
 	
 	/**
 	 * 글을 등록한다.
@@ -67,11 +76,11 @@ public interface SampleMapper {
 
 	/**
 	 * 글을 조회한다.
-	 * @param vo - 조회할 정보가 담긴 SampleVO
+	 * Id로 조회
 	 * @return 조회한 글
 	 * @exception Exception
 	 */
-	SampleVO selectPostById(int postId) throws Exception;
+	PostVO selectPostById(String postId) throws Exception;
 
 	/**
 	 * 글 목록을 조회한다.
@@ -79,7 +88,7 @@ public interface SampleMapper {
 	 * @return 글 목록
 	 * @exception Exception
 	 */
-	List<SampleVO> selectPostList(SampleSearchVO searchVO) throws Exception;
+	List<PostVO> selectPostList(SampleSearchVO searchVO) throws Exception;
 
 	/**
 	 * 글 총 갯수를 조회한다.
@@ -88,8 +97,6 @@ public interface SampleMapper {
 	 * @exception
 	 */
 	int selectSampleListTotCnt(SampleSearchVO searchVO);
-	
-	String getLastPostId();
 	
 	EmployeeVO selectEmployeeById(String employeeId) throws Exception;
 
