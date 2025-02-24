@@ -15,9 +15,11 @@
  */
 package egovframework.example.sample.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import egovframework.example.sample.service.EgovSampleService;
+import egovframework.example.sample.service.EmployeeVO;
 import egovframework.example.sample.service.SampleSearchVO;
 import egovframework.example.sample.service.SampleVO;
 
@@ -59,6 +61,9 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	/** ID Generation */
 	@Resource(name = "egovIdGnrService")
 	private EgovIdGnrService egovIdGnrService;
+	
+	
+	private  EgovSampleService sampleService;
 
 	/**
 	 * 글을 등록한다.
@@ -67,16 +72,20 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * @exception Exception
 	 */
 	@Override
-	public String insertSample(SampleVO vo) throws Exception {
-		LOGGER.debug(vo.toString());
-
-		/** ID Generation Service */
-		String id = egovIdGnrService.getNextStringId();
-		vo.setPostId(id);
-		LOGGER.debug(vo.toString());
-
-		sampleDAO.insertSample(vo);
-		return id;
+	public String insertPost(SampleVO sampleVO) throws Exception {
+		String lastPostId = sampleDAO.getLastPostId();
+		
+		String nextPostId = (lastPostId == null || lastPostId.isEmpty()) 
+                			? "00000001" 
+                			: String.format("%08d", Integer.parseInt(lastPostId) + 1);
+		
+		sampleVO.setPostId(nextPostId);
+		
+		sampleDAO.insertPost(sampleVO);
+		
+		LOGGER.info("게시물 등록 완료 ID: {}", nextPostId);
+		
+		return "게시판이 성공적으로 등록되었습니다.";
 	}
 
 	/**
@@ -135,6 +144,23 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	@Override
 	public int selectSampleListTotCnt(SampleSearchVO searchVO) {
 		return sampleDAO.selectSampleListTotCnt(searchVO);
+	}
+
+	/**
+	 * 유저 정보를 불러온다.
+	 * @param employeeId - 조회할 정보가 담긴 ID
+	 * @return 유저 정보
+	 * @exception
+	 */
+	@Override
+	public EmployeeVO selectEmployeeById(String employeeId) throws Exception {
+	    LOGGER.debug("selectEmployeeById - employeeId: {}", employeeId);
+	    
+	    EmployeeVO resultVO = sampleDAO.selectEmployeeById(employeeId);
+	    if (resultVO == null) {
+	        throw processException("info.nodata.msg");
+	    }
+	    return resultVO;
 	}
 
 }

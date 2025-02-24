@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <title>
         윤택선_글쓰기
-        <span th:text="#{button.create}"></span>
-        <span th:text="#{button.modify}"></span>
     </title>
     <link rel="stylesheet" th:href="@{/css/egovframework/sample.css}" />
 
-    <script type="text/javascript" th:src="@{/cmmn/validator.do}"></script>
+    <!-- <script type="text/javascript" th:src="@{/cmmn/validator.do}"></script> -->
 
     <script type="text/javascript">
         function fn_egov_selectList() {
@@ -22,99 +20,104 @@
 
         function fn_egov_save() {
             var frm = document.detailForm;
-            if (!validateSampleVO(frm)) {
+            
+            // 유효성 검사
+            if (!frm.postTitle.value.trim()) {
+                alert("제목을 입력하세요.");
                 return;
-            } else {
-                frm.submit();
             }
+            if (!frm.postCtt.value.trim()) {
+                alert("내용을 입력하세요.");
+                return;
+            }
+
+            
+            frm.submit();
         }
     </script>
 </head>
 <body style="text-align:center; margin:0 auto; display:inline; padding-top:100px;">
-
-<form id="detailForm" name="detailForm" method="post" th:object="${sampleVO}">
-    <div id="content_pop">
-        <!-- 타이틀 -->
-        <div id="title">
-            <ul>
-                <li>
-                    <img th:src="@{/images/egovframework/example/title_dot.gif}" alt=""/>
-                    <span th:text="#{button.create}"></span>
-                    <span th:text="#{button.modify}"></span>
-                </li>
-            </ul>
-        </div>
-        
-        <!-- 입력 폼 -->
-        <div id="table">
-            <table width="100%" border="1" cellpadding="0" cellspacing="0">
-                <colgroup>
-                    <col width="150"/>
-                    <col/>
-                </colgroup>
-
-                <!-- 수정 시 ID 표시 -->
-                <tr>
-                    <td class="tbtd_caption">
-                        <label for="id">작성자</label>
-                    </td>
-                    <td class="tbtd_content">
-                        <input type="text" class="essentiality" maxlength="10" readonly="true" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="tbtd_caption">
-                        <label for="postTitle" tb:text="제목"></label>
-                    </td>
-                    <td class="tbtd_content">
-                        <input type="text" maxlength="30" class="txt"/>
-                        <span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="tbtd_caption">
-                        <label for="postCtt" tb:text="내용"></label>
-                    </td>
-                    <td class="tbtd_content">
-                        <textarea rows="5" cols="58"></textarea>
-                        <span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="tbtd_caption">
-                        <label tb:text="첨부파일"></label>
-                    </td>
-                    <td class="tbtd_content">
-                        <input type="text" maxlength="10" class="txt" />
-                        <span ></span>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- 버튼 -->
-        <div id="sysbtn">
-            <ul>
-                <li>
-                    <span class="btn_blue_l">
-                        <a href="javascript:fn_egov_save();">
-                            <span th:text="#{button.create}"></span>
-                        </a>
-                        <img th:src="@{/images/egovframework/example/btn_bg_r.gif}" alt=""/>
-                    </span>
-                </li>
-                <li>
-                    <span class="btn_blue_l">
-                        <a href="javascript:document.getElementById('detailForm').reset();" th:text="#{button.reset}"></a>
-                        <img th:src="@{/images/egovframework/example/btn_bg_r.gif}" alt=""/>
-                    </span>
-                </li>
-            </ul>
-        </div>
-    </div>
-</form>
+	<form id="detailForm" name="detailForm" method="post" th:object="${sampleVO}" th:action="@{/post_create}">
+	    <div id="content_pop">
+	        <!-- 타이틀 -->
+	        <div id="title">
+	            <ul>
+	                <li>
+	                    <img th:src="@{/images/egovframework/example/title_dot.gif}" alt=""/>
+	                    <span th:text="#{button.create}"></span>
+	                    <span th:text="#{button.modify}"></span>
+	                </li>
+	            </ul>
+	        </div>
+	        
+	        <!-- 입력 폼 -->
+	        <div id="table">
+	            <table width="100%" border="1" cellpadding="0" cellspacing="0">
+	                <colgroup>
+	                    <col width="150"/>
+	                    <col/>
+	                </colgroup>
+	
+	                <!-- 수정 시 ID 표시 -->
+	                <tr>
+	                    <td class="tbtd_caption">
+	                        <label for="id">작성자</label>
+	                    </td>
+	                    <td class="tbtd_content">
+	                        <input type="text" class="essentiality" maxlength="10" readonly="true" th:value="${employeeVO.empnm}" />
+	                        <input type="hidden" th:field="*{regrEmpno}"/>
+	                    </td>
+	                </tr>
+	
+	                <tr>
+	                    <td class="tbtd_caption">
+	                        <label for="postTitle">제목</label>
+	                    </td>
+	                    <td class="tbtd_content">
+	                        <input type="text" maxlength="30" class="txt" width="100%" th:field="*{postTitle}" />
+	                    </td>
+	                </tr>
+	
+	                <tr>
+	                    <td class="tbtd_caption">
+	                        <label for="postCtt">내용</label>
+	                    </td>
+	                    <td class="tbtd_content">
+	                        <textarea rows="5" cols="58" th:field="*{postCtt}" ></textarea>
+	                    </td>
+	                </tr>
+	
+	                <tr>
+	                    <td class="tbtd_caption">
+	                        <label>첨부파일</label>
+	                    </td>
+	                    <td class="tbtd_content">
+	                        <input type="text" maxlength="10" class="txt" />
+	                    </td>
+	                </tr>
+	            </table>
+	        </div>
+	
+	        <!-- 버튼 -->
+	        <div id="sysbtn">
+	            <ul>
+	                <li>
+	                    <span class="btn_blue_l">
+	                        <a href="javascript:fn_egov_save();">
+	                            <span th:text="#{button.create}"></span>
+	                        </a>
+	                        <img th:src="@{/images/egovframework/example/btn_bg_r.gif}" alt=""/>
+	                    </span>
+	                </li>
+	                <li>
+	                    <span class="btn_blue_l">
+	                        <a href="javascript:document.getElementById('detailForm').reset();" th:text="#{button.reset}"></a>
+	                        <img th:src="@{/images/egovframework/example/btn_bg_r.gif}" alt=""/>
+	                    </span>
+	                </li>
+	            </ul>
+	        </div>
+	    </div>
+	</form>
 </body>
 </html>

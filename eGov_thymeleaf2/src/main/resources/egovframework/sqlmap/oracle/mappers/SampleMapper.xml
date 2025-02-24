@@ -61,5 +61,14 @@
 		    FROM 	TB_SAMPLE_LOGIN_YTS 
 		    WHERE 	EMPNO = #{empno}
 	</select>
+	
+	<select id="getLastPostId" resultType="String">
+		SELECT LPAD(COALESCE(MAX(post_id), '0'), 8, '0') FROM TB_SAMPLE_YTS
+	</select>
+	
+	<insert id="insertPost" parameterType="sampleVO">
+		INSERT INTO TB_SAMPLE_YTS (POST_ID, POST_TITLE, POST_CTT, REGR_EMPNO, REG_DT, MDFR_EMPNO, MDFCN_DT)
+	    VALUES (#{postId}, #{postTitle}, #{postCtt}, #{regrEmpno}, SYSDATE, NULL, NULL)
+	</insert>
 
 </mapper>

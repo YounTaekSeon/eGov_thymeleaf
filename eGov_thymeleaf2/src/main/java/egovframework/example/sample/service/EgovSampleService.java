@@ -41,7 +41,7 @@ public interface EgovSampleService {
 	 * @return 등록 결과
 	 * @exception Exception
 	 */
-	String insertSample(SampleVO vo) throws Exception;
+	String insertPost(SampleVO vo) throws Exception;
 
 	/**
 	 * 글을 수정한다.
@@ -82,5 +82,7 @@ public interface EgovSampleService {
 	 * @exception
 	 */
 	int selectSampleListTotCnt(SampleSearchVO searchVO);
+	
+	EmployeeVO selectEmployeeById(String employeeId) throws Exception;
 
 }

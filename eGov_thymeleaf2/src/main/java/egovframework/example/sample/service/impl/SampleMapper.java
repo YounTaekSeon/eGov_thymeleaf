@@ -17,6 +17,7 @@ package egovframework.example.sample.service.impl;
 
 import java.util.List;
 
+import egovframework.example.sample.service.EmployeeVO;
 import egovframework.example.sample.service.SampleSearchVO;
 import egovframework.example.sample.service.SampleVO;
 
@@ -46,7 +47,7 @@ public interface SampleMapper {
 	 * @return 등록 결과
 	 * @exception Exception
 	 */
-	void insertSample(SampleVO vo) throws Exception;
+	void insertPost(SampleVO vo) throws Exception;
 
 	/**
 	 * 글을 수정한다.
@@ -87,5 +88,9 @@ public interface SampleMapper {
 	 * @exception
 	 */
 	int selectSampleListTotCnt(SampleSearchVO searchVO);
+	
+	String getLastPostId();
+	
+	EmployeeVO selectEmployeeById(String employeeId) throws Exception;
 
 }
