@@ -61,14 +61,14 @@
 						<th>No</th>
 						<th>제목</th>
 						<th>글쓴이</th>
-						<th>작성일</th>
+						<th>작성일시</th>
 					</tr>
 					<tr th:each="result : ${postList}">
 						<td th:text="${result.postId}"></td>
 						<td>
 							<a th:href="@{/post_view/{postId}(postId=${result.postId})}" th:text="${result.postTitle}"></a>
 						</td>
-						<td th:text="${result.regrEmpno}"></td>
+						<td th:text="${result.empnm}"></td>
 						<td th:text="${result.regDt}"></td>
 					</tr>
 				</table>
