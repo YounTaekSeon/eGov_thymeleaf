@@ -7,8 +7,6 @@
     </title>
     <link rel="stylesheet" th:href="@{/css/egovframework/sample.css}" />
 
-    <!-- <script type="text/javascript" th:src="@{/cmmn/validator.do}"></script> -->
-
     <script type="text/javascript">
         function fn_egov_selectList() {
             document.detailForm.submit();
@@ -31,7 +29,6 @@
                 return;
             }
 
-            
             frm.submit();
         }
     </script>
@@ -57,8 +54,8 @@
 	                    <col width="150"/>
 	                    <col/>
 	                </colgroup>
-	
-	                <!-- 수정 시 ID 표시 -->
+	                
+	                <!-- 작성자 -->
 	                <tr>
 	                    <td class="tbtd_caption">
 	                        <label for="id">작성자</label>
@@ -69,6 +66,7 @@
 	                    </td>
 	                </tr>
 	
+					<!-- 제목 -->
 	                <tr>
 	                    <td class="tbtd_caption">
 	                        <label for="postTitle">제목</label>
@@ -78,6 +76,7 @@
 	                    </td>
 	                </tr>
 	
+					<!-- 내용 -->
 	                <tr>
 	                    <td class="tbtd_caption">
 	                        <label for="postCtt">내용</label>
@@ -87,13 +86,16 @@
 	                    </td>
 	                </tr>
 	
+					<!-- TODO: 수정내용 -->
 	                <tr>
+	                <!-- 
 	                    <td class="tbtd_caption">
 	                        <label>첨부파일</label>
 	                    </td>
 	                    <td class="tbtd_content">
 	                        <input type="text" maxlength="10" class="txt" />
 	                    </td>
+					 -->	                    
 	                </tr>
 	            </table>
 	        </div>

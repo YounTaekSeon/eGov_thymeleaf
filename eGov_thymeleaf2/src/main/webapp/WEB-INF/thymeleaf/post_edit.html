@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>윤택선_글수정</title>
+    <link rel="stylesheet" th:href="@{/css/egovframework/sample.css}" />
+
+    <script type="text/javascript">
+        function fn_egov_update() {
+            var frm = document.detailForm;
+            
+            // 유효성 검사
+            if (!frm.postTitle.value.trim()) {
+                alert("제목을 입력하세요.");
+                return;
+            }
+            if (!frm.postCtt.value.trim()) {
+                alert("내용을 입력하세요.");
+                return;
+            }
+
+            frm.submit();
+        }
+    </script>
+</head>
+<body style="text-align:center; margin:0 auto; display:inline; padding-top:100px;">
+    <form id="detailForm" name="detailForm" method="post" th:object="${sampleVO}" th:action="@{/post_edit}">
+        <div id="content_pop">
+            <!-- 타이틀 -->
+            <div id="title">
+                <ul>
+                    <li>
+                        <img th:src="@{/images/egovframework/example/title_dot.gif}" alt=""/>
+                        <span th:text="'게시글 수정'"></span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 입력 폼 -->
+            <div id="table">
+                <table width="100%" border="1" cellpadding="0" cellspacing="0">
+                    <colgroup>
+                        <col width="150"/>
+                        <col/>
+                    </colgroup>
+
+                    <!-- 게시글 ID (수정용) -->
+                    <input type="hidden" th:field="*{postId}" />
+
+                    <!-- 수정자 -->
+                    <tr>
+                        <td class="tbtd_caption">
+                            <label for="id">수정자</label>
+                        </td>
+                        <td class="tbtd_content">
+                            <input type="text" class="essentiality" maxlength="10" readonly="true" th:value="${employeeVO.empnm}" />
+                            <input type="hidden" th:field="*{regrEmpno}" />
+                        </td>
+                    </tr>
+
+                    <!-- 제목 -->
+                    <tr>
+                        <td class="tbtd_caption">
+                            <label for="postTitle">제목</label>
+                        </td>
+                        <td class="tbtd_content">
+                            <input type="text" maxlength="30" class="txt" width="100%" th:field="*{postTitle}" />
+                        </td>
+                    </tr>
+
+                    <!-- 내용 -->
+                    <tr>
+                        <td class="tbtd_caption">
+                            <label for="postCtt">내용</label>
+                        </td>
+                        <td class="tbtd_content">
+                            <textarea rows="5" cols="58" th:field="*{postCtt}"></textarea>
+                        </td>
+                    </tr>
+
+                    <!-- 첨부파일 -->
+                    <tr>
+                    <!-- 
+                        <td class="tbtd_caption">
+                            <label>첨부파일</label>
+                        </td>
+                        <td class="tbtd_content">
+                            <input type="file" name="fileUpload" />
+                        </td>
+ 					-->                        
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 버튼 -->
+            <div id="sysbtn">
+                <ul>
+                    <li>
+                        <span class="btn_blue_l">
+                            <a href="javascript:fn_egov_update();">수정</a>
+                            <img th:src="@{/images/egovframework/example/btn_bg_r.gif}" alt=""/>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="btn_blue_l">
+                            <a href="javascript:history.back();" th:text="'취소'"></a>
+                            <img th:src="@{/images/egovframework/example/btn_bg_r.gif}" alt=""/>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
