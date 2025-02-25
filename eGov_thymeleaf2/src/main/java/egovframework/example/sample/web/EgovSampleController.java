@@ -15,6 +15,8 @@
  */
 package egovframework.example.sample.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @Class Name : EgovSampleController.java
@@ -70,6 +73,7 @@ public class EgovSampleController {
 	public String getPostList(@ModelAttribute SampleSearchVO searchVO, HttpSession session, Model model) throws Exception {
 
 		// 로그인 정보가 세션에 없으면 자동 로그인
+		// TODO: 로그인 어떻게 할 것인지 생각
 		if (session.getAttribute("loggedInUser") == null) {
 			EmployeeVO user = sampleService.selectEmployeeById("00000001");
 			if (user != null) {
@@ -82,8 +86,6 @@ public class EgovSampleController {
 		List<PostVO> postList = sampleService.selectPostList(searchVO);
 		model.addAttribute("postList", postList);
 		model.addAttribute("searchVO", searchVO);
-
-		/* log.info("Sample List: {}", postList); */
 
 		return "post_list";
 	}
@@ -100,7 +102,6 @@ public class EgovSampleController {
 		 * searchVO.getSearchCondition()); log.info("searchKeyword: {}",
 		 * searchVO.getSearchKeyword());
 		 */
-
 		List<PostVO> postList = sampleService.selectPostList(searchVO);
 		model.addAttribute("postList", postList);
 		model.addAttribute("searchVO", searchVO);
@@ -158,14 +159,70 @@ public class EgovSampleController {
 	 */	
 	@PostMapping(value="/post_create")
 	public String savePost(@ModelAttribute SampleVO sampleVO, HttpSession session) throws Exception{
+		// TODO: 고민. 세션에서 불러올 것인지, GetMapping 때 create.html를 호출하면서 input hidden으로 값을 넣고 그걸 불러올 것인지
 	    EmployeeVO loggedInUser = getLoggedInUser(session);
 	    sampleVO.setRegrEmpno(loggedInUser.getEmpno());
 
 	    sampleService.insertPost(sampleVO);
 		
 		return "redirect:/post_list";
-		
 	}
+	
+	/**
+	 * 게시글 수정화면 호출.
+	 * @return post_edit.html
+	 * @exception Exception
+	 */	
+	@GetMapping("/post_edit/{postId}")
+	public String getPostEdit(@PathVariable("postId") String postId, Model model, HttpSession session) throws Exception {
+	    PostVO postDetail = sampleService.selectPostById(postId);
+	    if (postDetail == null) {
+	        model.addAttribute("errorMessage", "데이터 없음");
+	        return "common/common_error";
+	    }
+
+	    EmployeeVO loggedInUser = getLoggedInUser(session);
+	    model.addAttribute("employeeVO", loggedInUser);
+	    model.addAttribute("sampleVO", postDetail);
+
+	    return "post_edit";
+	}
+	
+	/**
+	 * 게시글 수정.
+	 * @return post_create.html
+	 * @exception Exception
+	 */	
+	@PostMapping(value="/post_edit")
+	public String editPost(@ModelAttribute SampleVO sampleVO, HttpSession session) throws Exception{
+		// TODO: 고민. 세션에서 불러올 것인지, GetMapping 때 edit.html를 호출하면서 input hidden으로 값을 넣고 그걸 불러올 것인지		
+	    EmployeeVO loggedInUser = getLoggedInUser(session);
+	    sampleVO.setMdfrEmpno(loggedInUser.getEmpno());
+
+	    sampleService.updatePost(sampleVO);
+
+	    return "redirect:/post_view/" + sampleVO.getPostId();
+	}
+	
+	/**
+	 * 게시글 삭제.
+	 * @return post_list.html
+	 * @exception Exception
+	 */		
+	@PostMapping("/post_delete")
+	public String deletePost(@ModelAttribute SampleVO sampleVO, @RequestParam("postId") String postId, HttpSession session) throws Exception {
+	    EmployeeVO loggedInUser = getLoggedInUser(session);
+	    sampleVO.setDelEmpno(loggedInUser.getEmpno());  // 삭제한 사용자의 사번 설정
+	    sampleVO.setPostId(postId); 					// 삭제할 postId 설정
+
+	    log.debug("Deleting post - postId: {}, delEmpno: {}", sampleVO.getPostId(), sampleVO.getDelEmpno());
+
+	    sampleService.deletePost(sampleVO); 			// SampleVO를 넘겨야 함
+
+	    return "redirect:/post_list";
+	}
+
+	
 	
 	/**
 	 * 세션에서 로그인된 사용자 정보를 가져오는 공통 메서드
@@ -173,6 +230,7 @@ public class EgovSampleController {
 	private EmployeeVO getLoggedInUser(HttpSession session) {
 	    EmployeeVO loggedInUser = (EmployeeVO) session.getAttribute("loggedInUser");
 
+	    // TODO: 위에 로그인 값이 없으면 default값 들어가도록 해놨는데 이거 놔둘지 말지 고민
 	    if (loggedInUser == null) {
 	        loggedInUser = new EmployeeVO();
 	        loggedInUser.setEmpnm("Guest");  // 기본 이름
@@ -180,6 +238,13 @@ public class EgovSampleController {
 	    }
 
 	    return loggedInUser;
-	}	
-
+	}
+	
+	private String transDateFormat(Date dated) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		String formattedDate = sdf.format(dated);
+		
+		return formattedDate;
+	}
 }

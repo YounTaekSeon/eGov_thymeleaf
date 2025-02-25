@@ -46,24 +46,8 @@ public interface EgovSampleService {
 	String insertPost(SampleVO vo) throws Exception;
 
 	/**
-	 * 글을 수정한다.
-	 * @param vo - 수정할 정보가 담긴 SampleVO
-	 * @return void형
-	 * @exception Exception
-	 */
-	void updateSample(SampleVO vo) throws Exception;
-
-	/**
-	 * 글을 삭제한다.
-	 * @param vo - 삭제할 정보가 담긴 SampleVO
-	 * @return void형
-	 * @exception Exception
-	 */
-	void deleteSample(SampleVO vo) throws Exception;
-
-	/**
-	 * 글을 조회한다.
-	 * @param vo - 조회할 정보가 담긴 SampleVO
+	 * 글을 Id로 조회한다.
+	 * @param vo - 조회할 정보가 담긴 postId
 	 * @return 조회한 글
 	 * @exception Exception
 	 */
@@ -76,6 +60,22 @@ public interface EgovSampleService {
 	 * @exception Exception
 	 */
 	List<PostVO> selectPostList(SampleSearchVO searchVO) throws Exception;
+	
+	/**
+	 * 글을 수정한다.
+	 * @param vo - 수정할 정보가 담긴 SampleVO
+	 * @return void형
+	 * @exception Exception
+	 */
+	void updatePost(SampleVO vo) throws Exception;	
+	
+	/**
+	 * 글을 삭제한다.
+	 * @param postId - 삭제할 글 정보 vo
+	 * @return 글 목록
+	 * @exception Exception
+	 */	
+	String deletePost(SampleVO vo) throws Exception;
 
 	/**
 	 * 글 총 갯수를 조회한다.

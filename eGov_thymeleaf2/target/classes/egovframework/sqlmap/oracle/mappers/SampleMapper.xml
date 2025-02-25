@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.example.sample.service.impl.SampleMapper">
 
+	<!-- SampleVO(TB_SAMPLE_YTS 구조) 매핑 -->
 	<resultMap id="sample" type="egovframework.example.sample.service.SampleVO">
 		<result property="postId" 		column="POST_ID"/>
 		<result property="postTitle" 	column="POST_TITLE"/>
@@ -15,6 +16,7 @@
 		<result property="delEmpno" 	column="DEL_EMPNO"/>
 	</resultMap>
 	
+	<!-- PostVO(TB_SAMPLE_YTS에 EMPNM 추가) 매핑 -->
 	<resultMap id="postResultMap" type="egovframework.example.sample.service.PostVO">
 	    <result property="postId" column="POST_ID"/>
 	    <result property="postTitle" column="POST_TITLE"/>
@@ -26,25 +28,32 @@
 	    <result property="mdfcnDt" column="MDFCN_DT"/>
 	</resultMap>	
 	
+	<!-- EmployeeVO(TB_SAMPLE_LOGIN_YTS 구조) 매핑 -->
 	<resultMap id="employee" type="egovframework.example.sample.service.EmployeeVO">
 		<result property="empno" 		column="EMPNO"/>
 		<result property="empnm" 		column="EMPNM"/>
 		<result property="delYn" 		column="DEL_YN"/>
 	</resultMap>	
 	
+	
+    <!-- =================================== -->
+    <!--              SELECT QUERIES         -->
+    <!-- =================================== -->	
+    
+    <!-- 게시글 목록 조회 -->
 	<select id="selectPostList" parameterType="searchVO" resultMap="postResultMap">
 			SELECT  A.POST_ID, 
 					A.POST_TITLE, 
 					A.POST_CTT, 
 					A.REGR_EMPNO,
-					B.EMPNM,  
+					B.EMPNM,
 					A.REG_DT, 
 					A.MDFR_EMPNO, 
 					A.MDFCN_DT
 			FROM 	TB_SAMPLE_YTS A
 			LEFT JOIN TB_SAMPLE_LOGIN_YTS B
 			ON		A.REGR_EMPNO = B.EMPNO 
-			WHERE	A.DEL_YN = 'N'
+			WHERE	A.DEL_YN = 'N' AND A.DEL_YN IS NOT NULL
 			<if test="searchKeyword != null and searchKeyword != ''">
 		        <choose>
 		            <when test="searchCondition == 0">
@@ -55,9 +64,10 @@
 					</when>
 				</choose>
 			</if>
-			ORDER BY A.POST_ID
+			ORDER BY A.POST_ID DESC
 	</select>
 
+	<!-- 게시글 ID로 조회 -->
 	<select id="selectPostById" parameterType="String" resultMap="postResultMap">
 		    SELECT 	A.POST_ID, 
 		    		A.POST_TITLE, 
@@ -71,27 +81,55 @@
 		    WHERE 	A.POST_ID = #{postId}
 	</select>
 	
-	<select id="getLastPostIdByDate" parameterType="string" resultType="string">
-    		SELECT 	MAX(POST_ID) 
-    		FROM 	TB_SAMPLE_YTS 
-    		WHERE 	SUBSTR(POST_ID, 1, 8) = #{today}
-	</select>
-	
+	<!-- 직원정보 ID로 검색 -->	
 	<select id="selectEmployeeById" parameterType="employeeVO" resultType="egovframework.example.sample.service.EmployeeVO">
 		    SELECT 	EMPNO, 
 		    		EMPNM
 		    FROM 	TB_SAMPLE_LOGIN_YTS 
 		    WHERE 	EMPNO = #{empno}
 	</select>
-
-	<!-- 날마다 게시글 번호 계산 -->
-	<select id="getLastPostId" resultType="String">
-		SELECT LPAD(COALESCE(MAX(post_id), '0'), 8, '0') FROM TB_SAMPLE_YTS
-	</select>
 	
+	<!-- 게시글 작성 -->	
 	<insert id="insertPost" parameterType="sampleVO">
-		INSERT INTO TB_SAMPLE_YTS (POST_ID, POST_TITLE, POST_CTT, REGR_EMPNO, REG_DT, MDFR_EMPNO, MDFCN_DT)
-	    VALUES (#{postId}, #{postTitle}, #{postCtt}, #{regrEmpno}, SYSDATE, NULL, NULL)
+			INSERT 	INTO TB_SAMPLE_YTS (POST_ID, POST_TITLE, POST_CTT, REGR_EMPNO, REG_DT, DEL_YN)
+		    VALUES 	(#{postId}, #{postTitle}, #{postCtt}, #{regrEmpno}, SYSDATE, 'N')
 	</insert>
+
+	<!-- 게시글 삭제 -->	
+	<update id="deletePost" parameterType="egovframework.example.sample.service.SampleVO">
+			UPDATE 	TB_SAMPLE_YTS 
+			SET		DEL_YN = 'Y',
+					DEL_EMPNO = #{delEmpno},
+					DEL_DT = SYSDATE 
+			WHERE 	POST_ID = #{postId}
+	</update>	
+	
+	<!-- 게시글 수정 -->
+	<update id="updatePost" parameterType="egovframework.example.sample.service.SampleVO">
+			UPDATE 	TB_SAMPLE_YTS 
+			SET		POST_TITLE = #{postTitle},
+					POST_CTT = #{postCtt},
+					MDFR_EMPNO = #{mdfrEmpno},
+					MDFCN_DT = SYSDATE 
+			WHERE 	POST_ID = #{postId}
+	</update>
+	
+    <!-- =================================== -->
+    <!--              UTILITY QUERIES        -->
+    <!-- =================================== -->
+    
+	<!-- 날짜 기준으로 마지막 게시글 ID 조회 -->
+	<select id="getLastPostIdByDate" parameterType="string" resultType="string">
+    		SELECT 	MAX(POST_ID) 
+    		FROM 	TB_SAMPLE_YTS 
+    		WHERE 	SUBSTR(POST_ID, 1, 8) = #{today}
+	</select>
+
+	<!-- 안 쓰는 거-->
+	<!-- 가장 마지막 게시글 번호 검색 -->
+	<select id="getLastPostId" resultType="String">
+			SELECT 	LPAD(COALESCE(MAX(post_id), '0'), 8, '0') 
+			FROM 	TB_SAMPLE_YTS
+	</select>		
 
 </mapper>

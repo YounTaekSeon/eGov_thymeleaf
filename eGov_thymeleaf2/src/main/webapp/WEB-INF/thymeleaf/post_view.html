@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>게시글 상세</title>
+    <link rel="stylesheet" th:href="@{/css/egovframework/sample.css}" />
 </head>
 <body>
     <h1>게시글 상세</h1>
@@ -11,7 +12,13 @@
     <p><strong>작성일:</strong> <span th:text="${postDetail.regDt}"></span></p>
     <p><strong>내용:</strong></p>
     <p th:text="${postDetail.postCtt}"></p>
-
-    <a th:href="@{/post_list}" >목록으로</a>
+    
+    <form id="postForm">
+        <input type="hidden" name="postId" th:value="${postDetail.postId}">
+        
+		<button type="submit" th:formaction="@{'/post_edit/' + ${postDetail.postId}}" formmethod="get">수정</button>
+        <button type="submit" th:formaction="@{/post_delete}" formmethod="post" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+    </form>
+    <a th:href="@{/post_list}" th:text="목록"></a>
 </body>
 </html>

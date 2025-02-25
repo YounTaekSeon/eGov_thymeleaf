@@ -65,59 +65,7 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	@Resource(name = "egovIdGnrService")
 	private EgovIdGnrService egovIdGnrService;
 	
-	
 	private  EgovSampleService sampleService;
-
-	/**
-	 * 글을 등록한다.
-	 * @param vo - 등록할 정보가 담긴 SampleVO
-	 * @return 등록 결과
-	 * @exception Exception
-	 */
-	@Override
-	public String insertPost(SampleVO sampleVO) throws Exception {
-	    // 현재 날짜를 YYYYMMDD 형식으로 가져오기
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-	    String today = sdf.format(new Date());
-
-	    // 오늘 날짜 기준으로 등록된 마지막 postId 가져오기
-	    String lastPostId = sampleDAO.getLastPostIdByDate(today);
-
-	    int nextId = (lastPostId == null || lastPostId.isEmpty()) 
-		    		? 1 
-		    		: Integer.parseInt(lastPostId.substring(8)) + 1;
-
-	    String nextPostId = today + String.format("%04d", nextId);
-
-	    sampleVO.setPostId(nextPostId);
-	    sampleDAO.insertPost(sampleVO);
-
-	    LOGGER.info("게시물 등록 완료 ID: {}", nextPostId);
-
-	    return "게시물이 성공적으로 등록되었습니다.";
-	}
-	
-	/**
-	 * 글을 수정한다.
-	 * @param vo - 수정할 정보가 담긴 SampleVO
-	 * @return void형
-	 * @exception Exception
-	 */
-	@Override
-	public void updateSample(SampleVO vo) throws Exception {
-		sampleDAO.updateSample(vo);
-	}
-
-	/**
-	 * 글을 삭제한다.
-	 * @param vo - 삭제할 정보가 담긴 SampleVO
-	 * @return void형
-	 * @exception Exception
-	 */
-	@Override
-	public void deleteSample(SampleVO vo) throws Exception {
-		sampleDAO.deleteSample(vo);
-	}
 
 	/**
 	 * 글을 조회한다.
@@ -128,14 +76,14 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	@Override
 	public PostVO selectPostById(String postId) throws Exception {
 		PostVO resultVO = sampleDAO.selectPostById(postId);
-	    LOGGER.debug("selectPostById - postId: {}", postId);
-	    LOGGER.debug("조회 결과: {}", resultVO);
-		
+	    LOGGER.debug("postId: {}", postId);
+	    
 		if (resultVO == null) {
 			throw processException("info.nodata.msg");
 		}
 		
 		LOGGER.info("게시물 상세 화면 ID: {}", resultVO);
+		
 		return resultVO;
 	}
 
@@ -160,6 +108,71 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	public int selectSampleListTotCnt(SampleSearchVO searchVO) {
 		return sampleDAO.selectSampleListTotCnt(searchVO);
 	}
+	
+
+	/**
+	 * 글을 등록한다.
+	 * @param vo - 등록할 정보가 담긴 SampleVO
+	 * @return 등록 결과
+	 * @exception Exception
+	 */
+	@Override
+	public String insertPost(SampleVO sampleVO) throws Exception {
+	    // 현재 날짜를 YYYYMMDD 형식으로 가져오기
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	    String today = sdf.format(new Date());
+
+	    // 오늘 날짜 기준으로 등록된 마지막 postId 가져오기
+	    String lastPostId = sampleDAO.getLastPostIdByDate(today);
+
+	    int nextId = (lastPostId == null || lastPostId.isEmpty()) 
+		    		? 1 
+		    		: Integer.parseInt(lastPostId.substring(8)) + 1;
+	    
+	    // yyyyMMddXXXX 형식으로 저장
+	    String nextPostId = today + String.format("%04d", nextId);
+
+	    sampleVO.setPostId(nextPostId);
+	    sampleDAO.insertPost(sampleVO);
+
+	    LOGGER.info("게시물 등록 완료 ID: {}", nextPostId);
+
+	    return "게시물이 성공적으로 등록되었습니다.";
+	}	
+	
+	/**
+	 * 글을 수정한다.
+	 * @param vo - 수정할 정보가 담긴 SampleVO
+	 * @return void형
+	 * @exception Exception
+	 */
+    @Override
+    public void updatePost(SampleVO sampleVO) throws Exception {
+        // 데이터 검증 (제목, 내용 체크)
+        if (sampleVO.getPostTitle() == null || sampleVO.getPostTitle().trim().isEmpty()) {
+            throw new IllegalArgumentException("제목은 필수 입력 항목입니다.");
+        }
+        if (sampleVO.getPostCtt() == null || sampleVO.getPostCtt().trim().isEmpty()) {
+            throw new IllegalArgumentException("내용은 필수 입력 항목입니다.");
+        }
+        
+        // TODO: 본인확인
+        sampleDAO.updatePost(sampleVO);
+    }
+    
+	/**
+	 * 글을 삭제한다.
+	 * @param vo - 삭제할 글 정보가 담긴 SampleVO
+	 * @return 글 목록
+	 * @exception Exception
+	 */
+	@Override
+	public String deletePost(SampleVO vo) throws Exception {
+		// TODO: 본인확인
+		sampleDAO.deletePost(vo);
+		
+		return "게시물이 성공적으로 삭제되었습니다.";
+	}	
 
 	/**
 	 * 유저 정보를 불러온다.
