@@ -8,12 +8,11 @@ public class PostVO {
     private String postTitle;
     private String postCtt;
     private String regrEmpno;
-    private String empnm; // 추가된 속성
+    private String empnm;		// SampleVO에 없던거
     private Date regDt;
     private String mdfrEmpno;
     private Date mdfcnDt;
 
-    // Getters & Setters
     public String getPostId() { return postId; }
     public void setPostId(String postId) { this.postId = postId; }
 

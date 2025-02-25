@@ -64,15 +64,15 @@ public interface SampleMapper {
 	 * @return void형
 	 * @exception Exception
 	 */
-	void updateSample(SampleVO vo) throws Exception;
+	void updatePost(SampleVO vo) throws Exception;
 
 	/**
 	 * 글을 삭제한다.
-	 * @param vo - 삭제할 정보가 담긴 SampleVO
+	 * @param postId - 삭제할 글의 정보가 담긴 SampleVO
 	 * @return void형
 	 * @exception Exception
 	 */
-	void deleteSample(SampleVO vo) throws Exception;
+	void deletePost(SampleVO vo) throws Exception;
 
 	/**
 	 * 글을 조회한다.
